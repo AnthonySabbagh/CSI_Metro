@@ -1,7 +1,7 @@
 import java.io.*;
 public class ParisMetro {
 	    public static void main(String [] args) {
-
+	    	
 	        // The name of the file to open.
 	        String fileName = "metro.txt";
 
@@ -16,12 +16,16 @@ public class ParisMetro {
 	            // Always wrap FileReader in BufferedReader.
 	            BufferedReader bufferedReader = 
 	                new BufferedReader(fileReader);
-	            //gffhgfgh
-
-	            while((line = bufferedReader.readLine()) != null) {
-	                System.out.println(line);
-	            }   
-
+	            boolean startRead = false;
+	            while((line = bufferedReader.readLine()) != null ) {
+	            	if (startRead==true){
+	            		System.out.println(line);
+	            	}
+	            	else if (line.equals(("$"))){
+	            		startRead=true;
+	            	}
+	            	
+	            }
 	            // Always close files.
 	            bufferedReader.close();         
 	        }
