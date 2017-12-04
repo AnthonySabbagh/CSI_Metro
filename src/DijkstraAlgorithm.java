@@ -142,7 +142,7 @@ public class DijkstraAlgorithm {
 		    			boolean isSource = e.getSource()==vertex;
 		    			boolean isDestination = e.getDestination()==vertex;
 		    			if (isSource||isDestination ){ //Incident edges
-		    				if (e.getLabel()=="Unexplored"){
+		    				if (e.getLabel()=="Unexplored" && e.getWeight()!=-1){
 		    					Vertex w = isSource ? e.getDestination() : e.getSource(); //gets opposite vertex
 		    					if (w.getLabel()=="Unexplored"){
 		    						e.setLabel("Discovery");
