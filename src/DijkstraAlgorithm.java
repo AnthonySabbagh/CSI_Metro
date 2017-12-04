@@ -21,6 +21,28 @@ public class DijkstraAlgorithm {
 	        this.nodes = new ArrayList<Vertex>(graph.getVertexes());
 	        this.edges = new ArrayList<Edge>(graph.getEdges());
 	    }
+	    
+	    public DijkstraAlgorithm(Graph graph, Vertex brokenLine) {
+	        // create a copy of the array so that we can operate on this array
+	        this.nodes = new ArrayList<Vertex>(graph.getVertexes());
+	        this.edges = new ArrayList<Edge>(graph.getEdges());
+	        
+	        Graph broken = BFS(graph,brokenLine);
+	        for (Vertex v:nodes){
+	        	for (Vertex b:broken.getVertexes()){
+	        		if (v.getId()==b.getId()){
+	        			nodes.remove(v);
+	        		}
+	        	}
+	        }
+	        for (Edge e:edges){
+	        	for (Edge b:broken.getEdges()){
+	        		if (e.getId()==b.getId()){
+	        			edges.remove(e);
+	        		}
+	        	}
+	        }
+	    }
 
 	    public void execute(Vertex source) {
 	        settledNodes = new HashSet<Vertex>();
@@ -120,8 +142,9 @@ public class DijkstraAlgorithm {
 	        return path;
 	    }
 	    
+	    
 	    public static Graph BFS(Graph g, Vertex v){
-	    	LinkedList<Vertex>[] l = new LinkedList[g.getVertexes().size()*100];
+	    	LinkedList<Vertex>[] l = new LinkedList[g.getEdges().size()*1000];
 	    	l[0] = new LinkedList<Vertex>();
 	    	l[0].addLast(v);
 	    	for (Vertex vertex:g.getVertexes()){
