@@ -119,6 +119,50 @@ public class DijkstraAlgorithm {
 	        Collections.reverse(path);
 	        return path;
 	    }
+	    
+	    public Graph BFS(Graph g, Vertex v){
+	    	LinkedList<Vertex>[] l = new LinkedList[g.getVertexes().size()*100];
+	    	l[0] = new LinkedList<Vertex>();
+	    	l[0].addLast(v);
+	    	for (Vertex vertex:g.getVertexes()){
+	    		vertex.setLabel("Unexplored");
+	    	}
+	    	for (Edge edge:g.getEdges()){
+	    		edge.setLabel("Unexplored");
+	    	}
+	    	v.setLabel("Visited");
+	    	
+	    	ArrayList<Vertex> finalVertices = new ArrayList<Vertex>();
+	    	ArrayList<Edge> finalEdges = new ArrayList<Edge>();
+	    	int i = 0;
+	    	while (!l[i].isEmpty()){
+		    	l[i+1] = new LinkedList<Vertex>();
+		    	for (Vertex vertex:l[i]){
+		    		for (Edge e:g.getEdges()){
+		    			boolean isSource = e.getSource()==vertex;
+		    			boolean isDestination = e.getDestination()==vertex;
+		    			if (isSource||isDestination ){ //Incident edges
+		    				if (e.getLabel()=="Unexplored"){
+		    					Vertex w = isSource ? e.getDestination() : e.getSource(); //gets opposite vertex
+		    					if (w.getLabel()=="Unexplored"){
+		    						e.setLabel("Discovery");
+		    						w.setLabel("Visited");
+		    						l[i+1].addLast(w);
+		    						finalVertices.add(w);
+		    						finalEdges.add(e);
+		    					}
+		    					else{
+		    						e.setLabel("Cross");
+		    						finalEdges.add(e);
+		    					}
+		    				}
+		    			}
+		    		}
+		    	}
+		    	i++;
+	    	}
+	    	return new Graph(finalVertices, finalEdges);
+	    }
 
 }
 

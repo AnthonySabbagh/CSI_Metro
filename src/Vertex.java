@@ -1,6 +1,7 @@
 public class Vertex {
     final private String id;
     final private String name;
+    private String label;
 
 
     public Vertex(String id, String name) {
@@ -43,6 +44,14 @@ public class Vertex {
     @Override
     public String toString() {
         return name;
+    }
+    
+    public String getLabel(){
+    	return label;
+    }
+    
+    public void setLabel(String l){
+    	label=l;
     }
 
 }
