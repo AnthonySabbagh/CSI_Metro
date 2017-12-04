@@ -86,7 +86,20 @@ public class ParisMetro {
 	        System.out.println("Input:\n");
 	        a = scan.nextLine();
 	        data= a.split(" ");
-	        Vertex Vx1 = Find(graph.getVertexes(),data[2]);
+	        if (data.length==6){ // test number 2 
+	        	Vertex Vx1 = Find(graph.getVertexes(),data[2]);
+		        Vertex Vx2 = Find(graph.getVertexes(),data[5]);
+		        System.out.println(Vx1);
+		        System.out.println(Vx2);
+		        
+		        dijkstra.execute(Vx1);
+		        LinkedList<Vertex> path = dijkstra.getPath(Vx2);
+
+		        for (Vertex vertex : path) {
+		            System.out.print(vertex.getId()+" ");
+		        }
+	        }
+	        /*Vertex Vx1 = Find(graph.getVertexes(),data[2]);
 	        Vertex Vx2 = Find(graph.getVertexes(),data[5]);
 	        System.out.println(Vx1);
 	        System.out.println(Vx2);
@@ -96,7 +109,7 @@ public class ParisMetro {
 
 	        for (Vertex vertex : path) {
 	            System.out.print(vertex.getId()+" ");
-	        }
+	        }*/
 	  }
 }
 
