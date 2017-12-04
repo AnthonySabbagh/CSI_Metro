@@ -120,7 +120,7 @@ public class DijkstraAlgorithm {
 	        return path;
 	    }
 	    
-	    public Graph BFS(Graph g, Vertex v){
+	    public static Graph BFS(Graph g, Vertex v){
 	    	LinkedList<Vertex>[] l = new LinkedList[g.getVertexes().size()*100];
 	    	l[0] = new LinkedList<Vertex>();
 	    	l[0].addLast(v);
