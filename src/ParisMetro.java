@@ -27,10 +27,11 @@ public class ParisMetro {
             BufferedReader bufferedReader = 
                 new BufferedReader(fileReader);
             boolean startRead = false;
+            String [] data = new String [3];
             while((line = bufferedReader.readLine()) != null ) {
             	if (startRead==true){
             		//System.out.println(line);
-            		String[] data = line.split(" ");
+            		data = line.split(" ");
             		//System.out.println(data[0]);
             		vertexi=new Vertex(data[0],"");
             		vertexj= new Vertex(data[1],"");
@@ -40,13 +41,21 @@ public class ParisMetro {
             		if(!vertexes.contains(vertexj)){
             			vertexes.add(vertexj);
             		}
-            		edge = new Edge(Integer.toString(count),vertexi,vertexj,Integer.parseInt(data[2]));
-            		edges.add(edge);
-            		count++;
+            		if (data[2].equals("-1")){
+            			edge = new Edge(Integer.toString(count),vertexi,vertexj,90);
+                		edges.add(edge);
+                		count++;
+            		}
+            		else{
+            			edge = new Edge(Integer.toString(count),vertexi,vertexj,Integer.parseInt(data[2]));
+                		edges.add(edge);
+                		count++;
+            		}
             	}
             	else if (line.equals(("$"))){
             		startRead=true;
             	}
+            	
             }
             graph = new Graph(vertexes,edges);
             // Always close files.
@@ -89,15 +98,15 @@ public class ParisMetro {
 	        if (data.length==6){ // test number 2 
 	        	Vertex Vx1 = Find(graph.getVertexes(),data[2]);
 		        Vertex Vx2 = Find(graph.getVertexes(),data[5]);
-		        System.out.println(Vx1);
-		        System.out.println(Vx2);
-		        
 		        dijkstra.execute(Vx1);
 		        LinkedList<Vertex> path = dijkstra.getPath(Vx2);
-
+		        System.out.println("Output:");
+		        System.out.print("Path :");
 		        for (Vertex vertex : path) {
 		            System.out.print(vertex.getId()+" ");
 		        }
+		        System.out.println("");
+		        System.out.println("Time :");
 	        }
 	        /*Vertex Vx1 = Find(graph.getVertexes(),data[2]);
 	        Vertex Vx2 = Find(graph.getVertexes(),data[5]);
