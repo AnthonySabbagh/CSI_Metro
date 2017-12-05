@@ -12,9 +12,6 @@ public class ParisMetro {
 	    Edge edge;
 	    int count=0;
 		Graph graph = new Graph(null,null);
-        // The name of the file to open.
-       // String fileName = "metro.txt";
-
         // This will reference one line at a time
         String line = null;
 
@@ -30,9 +27,10 @@ public class ParisMetro {
             String [] data = new String [3];
             while((line = bufferedReader.readLine()) != null ) {
             	if (startRead==true){
-            		//System.out.println(line);
             		data = line.split(" ");
-            		//System.out.println(data[0]);
+            		/*if (data[0].equals("") || data[1].equals("")){
+            			continue;
+            		}*/
             		vertexi=new Vertex(data[0],"");
             		vertexj= new Vertex(data[1],"");
             		if(!vertexes.contains(vertexi)){
@@ -76,7 +74,7 @@ public class ParisMetro {
         }
 		return graph;
       }
-	public static Vertex Find (List <Vertex> vertexes,String id){
+	public static Vertex Find_vertex (List <Vertex> vertexes,String id){
 		for (Vertex vertex : vertexes) {
 			if(vertex.getId().equals(id)){
 				return vertex;
@@ -86,18 +84,39 @@ public class ParisMetro {
 
 
 	}
+	public static int Find_edge(List<Edge> edges, Vertex initial, Vertex end ){
+		for (Edge edge : edges ){
+			if (edge.getSource().equals(initial) && edge.getDestination().equals(end)){
+				return edge.getWeight();
+			}
+		}
+		return -5;
+	}
 	    public static void main(String [] args) {
 	    	Graph graph = readMetro("metro.txt");
-	    	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
+	    	int time = 0;
 	    	String a = null;
+	    	List<Edge> listOfedges = new ArrayList<Edge>();
+	    	listOfedges= graph.getEdges(); // list containing all the edges 
 	    	String[] data= new String [6];
 	    	Scanner scan = new Scanner(System.in);
+	    	System.out.println("Test----------------------------------------");
 	        System.out.println("Input:\n");
 	        a = scan.nextLine();
 	        data= a.split(" ");
+	        /*if (data.length==3){
+	        	Vertex Vx1 = Find_vertex(graph.getVertexes(),data[2]);
+	        	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph,Vx1);
+	        	dijkstra.execute(Vx1);
+		        LinkedList<Vertex> path = dijkstra.getPath(Vx1);
+		        for (Vertex vertex : path) {
+		            System.out.print(vertex.getId()+" ");
+		        }
+	        }*/
 	        if (data.length==6){ // test number 2 
-	        	Vertex Vx1 = Find(graph.getVertexes(),data[2]);
-		        Vertex Vx2 = Find(graph.getVertexes(),data[5]);
+	        	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
+	        	Vertex Vx1 = Find_vertex(graph.getVertexes(),data[2]);
+		        Vertex Vx2 = Find_vertex(graph.getVertexes(),data[5]);
 		        dijkstra.execute(Vx1);
 		        LinkedList<Vertex> path = dijkstra.getPath(Vx2);
 		        System.out.println("Output:");
@@ -105,20 +124,14 @@ public class ParisMetro {
 		        for (Vertex vertex : path) {
 		            System.out.print(vertex.getId()+" ");
 		        }
+		        for(int i = 0;i<path.size()-1;i++){
+		        	time += Find_edge(listOfedges,path.get(i),path.get(i+1));
+		        }
+		        
 		        System.out.println("");
-		        System.out.println("Time :");
+		        System.out.println("Time :"+time);
+		       
 	        }
-	        /*Vertex Vx1 = Find(graph.getVertexes(),data[2]);
-	        Vertex Vx2 = Find(graph.getVertexes(),data[5]);
-	        System.out.println(Vx1);
-	        System.out.println(Vx2);
-	        
-	        dijkstra.execute(Vx1);
-	        LinkedList<Vertex> path = dijkstra.getPath(Vx2);
-
-	        for (Vertex vertex : path) {
-	            System.out.print(vertex.getId()+" ");
-	        }*/
 	  }
 }
 
