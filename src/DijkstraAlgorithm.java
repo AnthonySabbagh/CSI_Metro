@@ -144,9 +144,9 @@ public class DijkstraAlgorithm {
 	    
 	    
 	    public static Graph BFS(Graph g, Vertex v){
-	    	LinkedList<Vertex>[] l = new LinkedList[g.getVertexes().size()*5];
-	    	l[0] = new LinkedList<Vertex>();
-	    	l[0].addLast(v);
+	    	ArrayList<Vertex>[] l = new ArrayList[g.getVertexes().size()*5];
+	    	l[0] = new ArrayList<Vertex>();
+	    	l[0].add(v);
 	    	for (Vertex vertex:g.getVertexes()){
 	    		vertex.setLabel("Unexplored");
 	    	}
@@ -160,7 +160,7 @@ public class DijkstraAlgorithm {
 	    	finalVertices.add(v);
 	    	int i = 0;
 	    	while (!l[i].isEmpty()){
-		    	l[i+1] = new LinkedList<Vertex>();
+		    	l[i+1] = new ArrayList<Vertex>();
 		    	for (Vertex vertex:l[i]){
 		    		for (Edge e:g.getEdges()){
 		    			boolean isSource = e.getSource()==vertex;
@@ -171,7 +171,7 @@ public class DijkstraAlgorithm {
 		    					if (w.getLabel()=="Unexplored"){
 		    						e.setLabel("Discovery");
 		    						w.setLabel("Visited");
-		    						l[i+1].addLast(w);
+		    						l[i+1].add(w);
 		    						finalVertices.add(w);
 		    						finalEdges.add(e);
 		    					}
@@ -185,7 +185,7 @@ public class DijkstraAlgorithm {
 		    	}
 		    	++i;
 	    	}
-	    	return new Graph(finalVertices, finalEdges);
+	    	return new Graph(finalVertices,finalEdges);
 	    
 	    }
 

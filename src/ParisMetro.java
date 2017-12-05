@@ -113,10 +113,10 @@ public class ParisMetro {
 	        	Edge e1 = new Edge("1",v2,v1,1);
 	        	ArrayList<Vertex> v = new ArrayList<Vertex>();
 	        	ArrayList<Edge> e = new ArrayList<Edge>();
-	        	v.add(v0);v.add(v1);v.add(v2);
+	        	v.add(v0);v.add(v1);v.add(v2);//v.add(new Vertex("3",""));
 	        	e.add(e0);e.add(e1);
 	        	Graph g = new Graph(v,e);
-	        	List<Vertex> path = DijkstraAlgorithm.BFS(g, v1).getVertexes();
+	        	List<Vertex> path = DijkstraAlgorithm.BFS(g, v0).getVertexes();
 		        for (Vertex vertex : path) {
 		            System.out.print(vertex.getId()+" ");
 		        }
