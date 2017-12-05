@@ -104,15 +104,24 @@ public class ParisMetro {
 	        System.out.println("Input:\n");
 	        a = scan.nextLine();
 	        data= a.split(" ");
-	        /*if (data.length==3){
-	        	Vertex Vx1 = Find_vertex(graph.getVertexes(),data[2]);
-	        	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph,Vx1);
-	        	dijkstra.execute(Vx1);
-		        LinkedList<Vertex> path = dijkstra.getPath(Vx1);
+	        
+	        if (data.length==1){
+	        	Vertex v0 = new Vertex("0","");
+	        	Vertex v1 = new Vertex("1","");
+	        	Vertex v2 = new Vertex("2","");
+	        	Edge e0 = new Edge("0",v0,v1,1);
+	        	Edge e1 = new Edge("1",v2,v1,1);
+	        	ArrayList<Vertex> v = new ArrayList<Vertex>();
+	        	ArrayList<Edge> e = new ArrayList<Edge>();
+	        	v.add(v0);v.add(v1);v.add(v2);
+	        	e.add(e0);e.add(e1);
+	        	Graph g = new Graph(v,e);
+	        	List<Vertex> path = DijkstraAlgorithm.BFS(g, v1).getVertexes();
 		        for (Vertex vertex : path) {
 		            System.out.print(vertex.getId()+" ");
 		        }
-	        }*/
+		        System.out.println("");
+	        }
 	        if (data.length==6){ // test number 2 
 	        	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
 	        	Vertex Vx1 = Find_vertex(graph.getVertexes(),data[2]);
