@@ -144,34 +144,37 @@ public class DijkstraAlgorithm {
 	    
 	    
 	    public static Graph BFS(Graph g, Vertex v){
-	    	ArrayList<Vertex>[] l = new ArrayList[g.getVertexes().size()*5];
-	    	l[0] = new ArrayList<Vertex>();
-	    	l[0].add(v);
-	    	for (Vertex vertex:g.getVertexes()){
+
+	    	System.err.println("------");
+	    	ArrayList<ArrayList<Vertex>> l = new ArrayList<ArrayList<Vertex>>(); 
+	    	l.add( new ArrayList<Vertex>());
+	    	l.get(0).add(v);
+	    	/*for (Vertex vertex:g.getVertexes()){
 	    		vertex.setLabel("Unexplored");
 	    	}
 	    	for (Edge edge:g.getEdges()){
 	    		edge.setLabel("Unexplored");
-	    	}
+	    		edge.getDestination().setLabel("Unexplored");
+	    		edge.getSource().setLabel("Unexplored");
+	    	}*/
 	    	v.setLabel("Visited");
 	    	
 	    	ArrayList<Vertex> finalVertices = new ArrayList<Vertex>();
 	    	ArrayList<Edge> finalEdges = new ArrayList<Edge>();
 	    	finalVertices.add(v);
 	    	int i = 0;
-	    	while (!l[i].isEmpty()){
-		    	l[i+1] = new ArrayList<Vertex>();
-		    	for (Vertex vertex:l[i]){
-		    		for (Edge e:g.getEdges()){
-		    			boolean isSource = e.getSource()==vertex;
-		    			boolean isDestination = e.getDestination()==vertex;
-		    			if (isSource||isDestination ){ //Incident edges
-		    				if (e.getLabel()=="Unexplored" && e.getWeight()!=-1){
-		    					Vertex w = isSource ? e.getDestination() : e.getSource(); //gets opposite vertex
-		    					if (w.getLabel()=="Unexplored"){
+	    	while (!l.get(i).isEmpty()){
+		    	l.add(new ArrayList<Vertex>());
+		    	for (Vertex vertex:l.get(i)){
+		    		for (Edge e:vertex.getEdges()){
+		    			boolean isSource = e.getSource().getId().equals(vertex.getId());
+    					if (e.getLabel().equals("Unexplored")){
+	    					Vertex w = isSource ? e.getDestination() : e.getSource(); //gets opposite vertex
+	    					if (w.getLabel()!=null){
+		    					if (w.getLabel().equals("Unexplored")){
 		    						e.setLabel("Discovery");
 		    						w.setLabel("Visited");
-		    						l[i+1].add(w);
+		    						l.get(i+1).add(w);
 		    						finalVertices.add(w);
 		    						finalEdges.add(e);
 		    					}
@@ -179,15 +182,92 @@ public class DijkstraAlgorithm {
 		    						e.setLabel("Cross");
 		    						finalEdges.add(e);
 		    					}
-		    				}
-		    			}
+	    					}
+	    					else {
+	    						System.err.println("null");
+	    					}
+	    				}
+		    			
 		    		}
 		    	}
 		    	++i;
 	    	}
+
+	    	for (Edge e:g.getEdges()){
+	    		/*System.err.println(e.getSource().getId());
+	    		System.err.println(e.getSource().getId().equals("238"));
+	    		if (e.getSource().getId()=="238"){
+	    			System.err.println("From 238 to "+e.getDestination().getId()+" is "+e.getLabel());
+	    		}
+	    		if (e.getDestination().getId()=="238"){
+	    			System.err.println("From "+e.getSource().getId()+" to 238 is "+e.getLabel());
+	    		}*/
+	        	System.err.println("Source: "+e.getSource().getId()+" Destination: "+e.getDestination().getId()+" Label: "+e.getLabel());
+
+	    	}
 	    	return new Graph(finalVertices,finalEdges);
 	    
 	    }
+	    /*
+	    public static ArrayList<String> getLine(List<Edge> edges, String id){
+	    	ArrayList<String> line = new ArrayList<String>();
+	    	line.add(id);
+	    	boolean done = false;
+	    	while (!done){
+	    		done=true;
+	    		for (Edge e:edges){
+	    			if(e.getWeight()!=-1){
+	    				if (line.contains(e.getDestination().getId())){
+	    					if (!line.contains(e.getSource().getId())){
+	    						line.add(e.getSource().getId());
+	    						done=false;
+	    					}
+	    				}
+	    				if (line.contains(e.getSource().getId())){
+	    					if (!line.contains(e.getDestination().getId())){
+	    						line.add(e.getDestination().getId());
+	    						done=false;
+	    					}
+	    				}
+	    			}
+	    		}
+	    	}
+	    	return line;
+	    }
+	    public static Graph DFS(Graph g, Vertex v){
+	    	Graph g1 = new Graph(new ArrayList<Vertex>(), new ArrayList<Edge>());
+	    	DFS(g,v,g1);
+	    	for (Edge e:g.getEdges()){
+	    		/*System.err.println(e.getSource().getId());
+	    		System.err.println(e.getSource().getId().equals("238"));
+	    		if (e.getSource().getId()=="238"){
+	    			System.err.println("From 238 to "+e.getDestination().getId()+" is "+e.getLabel());
+	    		}
+	    		if (e.getDestination().getId()=="238"){
+	    			System.err.println("From "+e.getSource().getId()+" to 238 is "+e.getLabel());
+	    		}*/
+	        	System.err.println("Source: "+e.getSource().getId()+" Destination: "+e.getDestination().getId()+" Label: "+e.getLabel());
 
+	    	}
+	    	return g1;
+	    }
+	    private static void DFS(Graph g, Vertex v, Graph g1){
+	    	v.setLabel("Visited");
+	    	g1.vertexes.add(v);
+	    	for (Edge e:v.getEdges()){
+	    		if (e.getLabel().equals("Unexplored")){
+	    			Vertex w = e.getSource().equals(v) ? e.getDestination() : e.getSource();
+	    			if (w.getLabel().equals("Unexplored")){
+	    				e.setLabel("Discovery");
+	    				g1.edges.add(e);
+	    				DFS(g,w);
+	    			}
+	    			else{
+	    				e.setLabel("Back");
+	    				g1.edges.add(e);
+	    			}
+	    		}
+	    	}
+	    }*/
 }
 

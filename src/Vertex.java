@@ -1,9 +1,9 @@
+import java.util.ArrayList;
 public class Vertex {
     final private String id;
     final private String name;
     private String label;
-
-
+    private ArrayList<Edge> edges = new ArrayList<Edge>();
     public Vertex(String id, String name) {
         this.id = id;
         this.name = name;
@@ -11,7 +11,13 @@ public class Vertex {
     public String getId() {
         return id;
     }
-
+    
+    public void addEdge(Edge e){
+    	edges.add(e);
+    }
+    public ArrayList<Edge> getEdges(){
+    	return edges;
+    }
     public String getName() {
         return name;
     }

@@ -1,7 +1,7 @@
 public class Edge  {
     private final String id;
-    private final Vertex source;
-    private final Vertex destination;
+    private Vertex source;
+    private Vertex destination;
     private final int weight;
     private String label;
 
