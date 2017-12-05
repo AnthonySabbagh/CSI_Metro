@@ -144,7 +144,7 @@ public class DijkstraAlgorithm {
 	    
 	    
 	    public static Graph BFS(Graph g, Vertex v){
-	    	LinkedList<Vertex>[] l = new LinkedList[g.getEdges().size()*1000];
+	    	LinkedList<Vertex>[] l = new LinkedList[g.getVertexes().size()*5];
 	    	l[0] = new LinkedList<Vertex>();
 	    	l[0].addLast(v);
 	    	for (Vertex vertex:g.getVertexes()){
@@ -157,6 +157,7 @@ public class DijkstraAlgorithm {
 	    	
 	    	ArrayList<Vertex> finalVertices = new ArrayList<Vertex>();
 	    	ArrayList<Edge> finalEdges = new ArrayList<Edge>();
+	    	finalVertices.add(v);
 	    	int i = 0;
 	    	while (!l[i].isEmpty()){
 		    	l[i+1] = new LinkedList<Vertex>();
@@ -182,9 +183,10 @@ public class DijkstraAlgorithm {
 		    			}
 		    		}
 		    	}
-		    	i++;
+		    	++i;
 	    	}
 	    	return new Graph(finalVertices, finalEdges);
+	    
 	    }
 
 }
