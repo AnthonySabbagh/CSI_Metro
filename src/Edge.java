@@ -3,7 +3,6 @@ public class Edge  {
     private Vertex source;
     private Vertex destination;
     private final int weight;
-    private String label;
 
     public Edge(String id, Vertex source, Vertex destination, int weight) {
         this.id = id;
@@ -12,13 +11,7 @@ public class Edge  {
         this.weight = weight;
     }
     
-    public String getLabel(){
-    	return label;
-    }
-    
-    public void setLabel(String l){
-    	label = l;
-    }
+
     
     public String getId() {
         return id;

@@ -42,9 +42,7 @@ public class ParisMetro {
             		}*/
             		matrix[Integer.parseInt(data[0])][Integer.parseInt(data[1])] = Integer.parseInt(data[2]); 
             		vertexi=new Vertex(data[0],"");
-            		vertexi.setLabel("Unexplored");
             		vertexj= new Vertex(data[1],"");
-            		vertexj.setLabel("Unexplored");
             		if(!vertexes.contains(vertexi)){
             			vertexes.add(vertexi);
             		}
@@ -53,25 +51,16 @@ public class ParisMetro {
             		}
             		if (data[2].equals("-1")){
             			edge = new Edge(Integer.toString(count),vertexi,vertexj,90);
-            			edge.setLabel("Unexplored");
                 		edges.add(edge);
                 		count++;
             		}
             		else{
             			edge = new Edge(Integer.toString(count),vertexi,vertexj,Integer.parseInt(data[2]));
-            			edge.setLabel("Unexplored");
                 		edges.add(edge);
                 		if (vertexi.getId().equals("0")){
                 			System.err.println("adfadfadfadsf"+vertexj.getId());
                 		}
-                		Vertex vi = Find_vertex(vertexes,vertexi.getId());
-                		Vertex vj = Find_vertex(vertexes,vertexi.getId());
-                		if (!vi.getEdges().contains(edge)){
-                    		vi.addEdge(edge);
-                		}
-                		if (!vj.getEdges().contains(edge)){
-                    		vj.addEdge(edge);
-                		}
+                		
                 		count++;
             		}
             	}
@@ -229,6 +218,7 @@ public class ParisMetro {
 			        				next.add(e.getDestination().getId());
 			        			}
 			        		}
+			        		
 			        	}
 	        		}
 	        		old=new ArrayList<String>();
