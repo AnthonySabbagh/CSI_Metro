@@ -122,6 +122,14 @@ public class ParisMetro {
 		        }
 		        System.out.println("");
 	        }
+	        if (data.length==3){//test number 1
+	        	Vertex Vx1 = Find_vertex(graph.getVertexes(),data[2]);
+	        	List<Vertex> path = DijkstraAlgorithm.BFS(graph, Vx1).getVertexes();
+		        for (Vertex vertex : path) {
+		            System.out.print(vertex.getId()+" ");
+		        }
+		        System.out.println("");
+	        }
 	        if (data.length==6){ // test number 2 
 	        	DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(graph);
 	        	Vertex Vx1 = Find_vertex(graph.getVertexes(),data[2]);
